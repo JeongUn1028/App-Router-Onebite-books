@@ -6,7 +6,7 @@ import { JSX, Suspense } from "react";
 
 async function SearchResult({ q }: { q?: string }): Promise<JSX.Element> {
   await delay(1000); // 로딩 상태를 확인하기 위해 인위적으로 1초 지연
-  
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`,
     { cache: "force-cache" },
@@ -29,9 +29,10 @@ export default function Page({
 }: {
   searchParams: { q?: string };
 }) {
+  const q = searchParams.q || "";
   return (
-    <Suspense key={searchParams.q} fallback={<BookListSkeleton count={3} />}>
-      <SearchResult q={searchParams.q || ""} />
+    <Suspense key={q} fallback={<BookListSkeleton count={3} />}>
+      <SearchResult q={q} />
     </Suspense>
   );
 }

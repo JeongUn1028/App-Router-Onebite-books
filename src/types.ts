@@ -8,4 +8,12 @@ interface BookData {
   coverImgUrl: string;
 }
 
-export type { BookData };
+interface ReviewData {
+  id: number;
+  content: string;
+  author: string;
+  bookId: number;
+  createdAt: string;
+}
+
+export type { BookData, ReviewData };
