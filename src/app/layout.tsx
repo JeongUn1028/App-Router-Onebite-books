@@ -1,16 +1,18 @@
 import "./globals.css";
 import Link from "next/link";
 import style from "./layout.module.css";
+import { BookData } from "@/types";
 
 async function Footer() {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    { cache: "force-cache" },
   );
   if (!response.ok) {
     return <div>제작 @JeongUn</div>;
   }
 
-  const books = await response.json();
+  const books: BookData[] = await response.json();
   const totalBooks = books.length;
   return (
     <>

@@ -1,5 +1,14 @@
 import { BookData } from "@/types";
 import style from "./page.module.css";
+import { notFound } from "next/navigation";
+
+//! SSG 방식으로 사전에 렌더링할 경로를 고정
+// export const dynamicParams = false;
+
+//* SSG 방식으로 사전에 렌더링할 경로를 정의
+export function generateStaticParams() {
+  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+}
 
 export default async function Page({
   params,
@@ -10,8 +19,12 @@ export default async function Page({
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`,
+    { cache: "force-cache" },
   );
   if (!res.ok) {
+    if (res.status === 404) {
+      notFound();
+    }
     return <div>도서 정보를 불러오는데 실패했습니다.</div>;
   }
   const book: BookData = await res.json();
