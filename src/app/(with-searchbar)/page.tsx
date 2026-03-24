@@ -1,12 +1,10 @@
 import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import { BookData } from "@/types";
-import { delay } from "@/util/delay";
 import { Suspense } from "react";
 import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 
 async function RecommendedBooks() {
-  await delay(1000); // 로딩 상태를 확인하기 위해 인위적으로 1초 지연
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
     { next: { revalidate: 3 } },
@@ -25,7 +23,6 @@ async function RecommendedBooks() {
 }
 
 async function AllBooks() {
-  await delay(1000); // 로딩 상태를 확인하기 위해 인위적으로 1초 지연
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`, {
     cache: "force-cache",
   });
