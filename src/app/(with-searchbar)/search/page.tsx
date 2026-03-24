@@ -22,12 +22,13 @@ async function SearchResult({ q }: { q?: string }): Promise<JSX.Element> {
   );
 }
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }) {
-  const q = searchParams.q || "";
+  const param = await searchParams;
+  const q = param?.q || "";
   return (
     <Suspense key={q} fallback={<BookListSkeleton count={3} />}>
       <SearchResult q={q} />
