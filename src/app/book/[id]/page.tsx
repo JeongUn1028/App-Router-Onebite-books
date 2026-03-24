@@ -9,8 +9,15 @@ import Image from "next/image";
 // export const dynamicParams = false;
 
 //* SSG 방식으로 사전에 렌더링할 경로를 정의
-// export function generateStaticParams() {
-//   return [{ id: "1" }, { id: "2" }, { id: "3" }];
+// export async function generateStaticParams() {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`, {
+//     cache: "force-cache",
+//   });
+//   if (!res.ok) {
+//     throw new Error("도서 목록을 불러오는데 실패했습니다.");
+//   }
+//   const books: BookData[] = await res.json();
+//   return books.map((book) => ({ id: book.id }));
 // }
 
 async function BookDetail({ bookId }: { bookId: string }) {

@@ -1,8 +1,6 @@
 import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import { BookData } from "@/types";
-import { Suspense } from "react";
-import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 
 async function RecommendedBooks() {
   const res = await fetch(
@@ -39,22 +37,16 @@ async function AllBooks() {
   );
 }
 
-export const dynamic = "force-dynamic"; // 이 페이지는 항상 서버에서 렌더링되어야 함
-
 export default function Home() {
   return (
     <div className={style.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
-        <Suspense fallback={<BookListSkeleton count={3} />}>
-          <RecommendedBooks />
-        </Suspense>
+        <RecommendedBooks />
       </section>
       <section>
         <h3>등록된 모든 도서</h3>
-        <Suspense fallback={<BookListSkeleton count={3} />}>
-          <AllBooks />
-        </Suspense>
+        <AllBooks />
       </section>
     </div>
   );
